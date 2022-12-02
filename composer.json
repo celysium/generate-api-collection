@@ -1,0 +1,44 @@
+{
+  "name": "celysium/generate-api-collection",
+  "description": "generate api collection for postman swagger and etc",
+  "keywords": [
+    "Laravel",
+    "api",
+    "postman",
+    "swagger",
+    "collection",
+    "generate"
+  ],
+  "license": "MIT",
+  "type": "library",
+  "autoload": {
+    "psr-4": {
+      "Celysium\\GenerateApiCollection\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "SzkCompany\\Marketing\\GenerateApiCollectionServiceProvider"
+      ]
+    }
+  },
+  "authors": [
+    {
+      "name": "Ehsan Tavakoli",
+      "email": "ehsantavakoli1995@gmail.com"
+    },
+    {
+      "name" : "Nasser Hekmati",
+      "email" : "hekmati.nasser@gmail.com"
+    }
+  ],
+  "require": {
+    "php" : "^8.0",
+    "illuminate/support" : "^8.0|^9.0",
+    "illuminate/console" : "^8.0|^9.0",
+    "celysium/router": "dev-master"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
