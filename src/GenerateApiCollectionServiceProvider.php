@@ -9,6 +9,12 @@ class GenerateApiCollectionServiceProvider extends ServiceProvider
 {
     public function boot()
     {
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__.'/../config/generate_collection.php' => config_path('generate_collection.php'),
+            ], 'generate-collection-config');
+        }
+        
         $this->commands([
             GenerateCollection::class
         ]);
@@ -16,6 +22,8 @@ class GenerateApiCollectionServiceProvider extends ServiceProvider
 
     public function register()
     {
-        //
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/generate_collection.php', 'generate_collection'
+        );
     }
 }

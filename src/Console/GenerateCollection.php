@@ -22,11 +22,14 @@ class GenerateCollection extends Command
      */
     protected $description = 'Store api collection to disk';
 
-
+    /** @var string */
     protected string $baseUrl;
 
-
+    /** @var array */
     protected array $structure;
+
+    /** @var array */
+    protected $config;
 
     /**
      * Execute the console command.
@@ -35,20 +38,27 @@ class GenerateCollection extends Command
      */
     public function handle()
     {
-        $this->fillStructure();
+        $this->loadConfig();
 
         $this->baseUrl();
 
-        $this->fillItems();
+        $this->fillStructure();
+
+        $this->items();
 
         $this->store();
 
         return 0;
     }
 
+    protected function loadConfig()
+    {
+        $this->config = config('generate_collection');
+    }
+
     protected function baseUrl(): void
     {
-        $this->baseUrl = env('APP_URL');
+        $this->baseUrl = $this->config['base_url'];
     }
 
     protected function fullUrl(string $url): string
@@ -59,7 +69,12 @@ class GenerateCollection extends Command
     protected function fillStructure(): void
     {
         $this->structure = [
-            'variable' => [],
+            'variable' => [
+                [
+                    'key' => 'base_url',
+                    'value' => $this->config['base_url'],
+                ],
+            ],
             'info' => [
                 'name' => 'postman.json',
                 'schema' => 'https://schema.getpostman.com/json/collection/v2.1.0/collection.json',
@@ -69,7 +84,7 @@ class GenerateCollection extends Command
         ];
     }
 
-    protected function fillItems(): void
+    protected function items(): void
     {
         $items = Router::get();
 
